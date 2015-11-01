@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core.UT
+namespace Soma.Core.Tests
 
 module SqlTest = 
 
