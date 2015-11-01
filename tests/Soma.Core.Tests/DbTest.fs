@@ -32,7 +32,6 @@ module DbTest =
       fail ()
     with 
     | :? SqlException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA2016" ex.MessageId
     | ex -> 
       fail ex
@@ -44,7 +43,6 @@ module DbTest =
       fail ()
     with 
     | :? DbException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA4002" ex.MessageId
     | ex -> 
       fail ex
@@ -58,7 +56,6 @@ module DbTest =
       fail ()
     with 
     | :? DbException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA4004" ex.MessageId
     | ex -> 
       fail ex
@@ -70,7 +67,6 @@ module DbTest =
       fail ()
     with 
     | :? DbException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA4003" ex.MessageId
     | ex -> 
       fail ex
@@ -159,7 +155,6 @@ module DbTest =
       ()
     with
     | :? DbException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA4027" ex.MessageId
     | ex -> 
       fail ex
@@ -211,7 +206,6 @@ module DbTest =
       Conversion.toExprCtxt "" |> ignore
     with
     | :? DbException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA4020" ex.MessageId
     | ex -> 
       fail ex

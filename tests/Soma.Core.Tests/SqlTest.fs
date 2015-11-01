@@ -212,7 +212,6 @@ module SqlTest =
       Sql.parse "/*%if aaa" |> ignore
     with
     | :? SqlException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA2010" ex.MessageId
     | ex ->
       fail ex
@@ -243,7 +242,6 @@ module SqlTest =
       Sql.parse "/*%hoge aaa *//*%end */" |> ignore
     with
     | :? SqlException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA2019" ex.MessageId
     | ex ->
       fail ex
@@ -279,7 +277,6 @@ module SqlTest =
       Sql.parse "/** aaa" |> ignore
     with
     | :? SqlException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA2011" ex.MessageId
     | ex ->
       fail ex
@@ -332,7 +329,6 @@ module SqlTest =
       Sql.parse "'aaa" |> ignore
     with
     | :? SqlException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA2012" ex.MessageId
     | ex ->
       fail ex
@@ -410,7 +406,6 @@ module SqlTest =
       fail ()
     with
     | :? SqlException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA2008" ex.MessageId
     | ex ->
       fail ex
@@ -422,7 +417,6 @@ module SqlTest =
       fail ()
     with
     | :? SqlException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA2008" ex.MessageId
     | ex ->
       fail ex
@@ -434,7 +428,6 @@ module SqlTest =
       fail ()
     with
     | :? SqlException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA2009" ex.MessageId
     | ex ->
       fail ex
@@ -446,7 +439,6 @@ module SqlTest =
       fail ()
     with
     | :? SqlException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA2007" ex.MessageId
     | ex ->
       fail ex
@@ -542,7 +534,6 @@ module SqlTest =
       fail ()
     with 
     | :? SqlException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA2005" ex.MessageId
     | ex -> 
       fail ex
@@ -554,7 +545,6 @@ module SqlTest =
       fail ()
     with 
     | :? SqlException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA2004" ex.MessageId
     | ex -> 
       fail ex
@@ -566,7 +556,6 @@ module SqlTest =
       fail ()
     with 
     | :? SqlException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA2004" ex.MessageId
     | ex -> 
       fail ex
@@ -578,7 +567,6 @@ module SqlTest =
       fail ()
     with 
     | :? SqlException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA2015" ex.MessageId
     | ex -> 
       fail ex
@@ -601,8 +589,6 @@ module SqlTest =
           /*% end */
         /*% end */
         " (dict ["seq", (box seq, seq.GetType())]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 3 ps.Parameters.Length
     assert_equal 1 ps.Parameters.[0].Value
     assert_equal 2 ps.Parameters.[1].Value
@@ -623,7 +609,6 @@ module SqlTest =
         order by
           aaa.id
         " (dict ["seq", (box seq, seq.GetType())]) 1L 10L parser
-    printfn "%s" ps.Text
     let sql = "select * from ( select temp_.*, row_number() over( order by
           temp_.id
          ) as soma_rownumber_ from ( 
@@ -657,7 +642,6 @@ module SqlTest =
       fail ()
     with 
     | :? SqlException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA2014" ex.MessageId
     | ex -> 
       fail ex
@@ -678,7 +662,6 @@ module SqlTest =
       fail ()
     with 
     | :? SqlException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA2015" ex.MessageId
     | ex -> 
       fail ex
@@ -686,160 +669,120 @@ module SqlTest =
   [<Test>]
   let ``prepare : dialect root expr : escape`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* escape bbb */'a' escape '$'" (dict ["bbb", (box "x%x", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "x$%x" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : escape : CharString`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* escape bbb */'a' escape '$'" (dict ["bbb", (box <| CharString "x%x", typeof<CharString>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "x$%x" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : escape : null`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* escape bbb */'a' escape '$'" (dict ["bbb", (null, typeof<obj>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal DBNull.Value ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : escape : option`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* escape bbb */'a' escape '$'" (dict ["bbb", (box (Some "x%x"), typeof<option<string>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "x$%x" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : Escape`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* @Escape(bbb) */'a' escape '$'" (dict ["bbb", (box "x%x", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "x$%x" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : startsWith`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* startsWith bbb */'a' escape '$'" (dict ["bbb", (box "x%x", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "x$%x%" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : startsWith : CharString`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* startsWith bbb */'a' escape '$'" (dict ["bbb", (box <| CharString "x%x", typeof<CharString>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "x$%x%" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : startsWith : null`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* startsWith bbb */'a' escape '$'" (dict ["bbb", (null, typeof<obj>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal DBNull.Value ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : startsWith : option`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* startsWith bbb */'a' escape '$'" (dict ["bbb", (box (Some "x%x"), typeof<option<string>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "x$%x%" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : StartsWith`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* @StartsWith bbb */'a' escape '$'" (dict ["bbb", (box "x%x", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "x$%x%" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : contains`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* contains bbb */'a' escape '$'" (dict ["bbb", (box "x%x", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "%x$%x%" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : contains : CharString`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* contains bbb */'a' escape '$'" (dict ["bbb", (box <| CharString "x%x", typeof<CharString>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "%x$%x%" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : contains : null`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* contains bbb */'a' escape '$'" (dict ["bbb", (null, typeof<obj>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal DBNull.Value ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : contains : option`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* contains bbb */'a' escape '$'" (dict ["bbb", (box(Some "x%x"), typeof<option<string>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "%x$%x%" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : Contains`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* @Contains bbb */'a' escape '$'" (dict ["bbb", (box "x%x", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "%x$%x%" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : endsWith`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* endsWith bbb */'a' escape '$'" (dict ["bbb", (box "x%x", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "%x$%x" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : endsWith : CharString`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* endsWith bbb */'a' escape '$'" (dict ["bbb", (box <| CharString "x%x", typeof<CharString>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "%x$%x" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : endsWith : null`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* endsWith bbb */'a' escape '$'" (dict ["bbb", (null, typeof<obj>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal DBNull.Value ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : endsWith : option`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* endsWith bbb */'a' escape '$'" (dict ["bbb", (box(Some "x%x"), typeof<option<string>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "%x$%x" ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : EndsWith`` () =
     let ps = Sql.prepare config "select * from aaa where bbb like /* @EndsWith bbb */'a' escape '$'" (dict ["bbb", (box "x%x", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "%x$%x" ps.Parameters.[0].Value
 
@@ -872,8 +815,6 @@ module SqlTest =
   let ``prepare : dialect root expr : date`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* date bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box bbb, typeof<DateTime>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 23)) ps.Parameters.[0].Value
     assert_equal DbType.DateTime ps.Parameters.[0].DbType 
@@ -886,8 +827,6 @@ module SqlTest =
           member this.TypeToDbType = Func<Type, DbType option>(fun t -> Some DbType.DateTime2 )}
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* date bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box bbb, typeof<DateTime>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 23)) ps.Parameters.[0].Value
     assert_equal DbType.DateTime2 ps.Parameters.[0].DbType 
@@ -896,8 +835,6 @@ module SqlTest =
   let ``prepare : dialect root expr : date : null`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* date bbb */'2000-01-01 00:00:00'" (dict ["bbb", (null, typeof<obj>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal DBNull.Value ps.Parameters.[0].Value
 
@@ -905,8 +842,6 @@ module SqlTest =
   let ``prepare : dialect root expr : date : option`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* date bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box (Some bbb), typeof<option<DateTime>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 23)) ps.Parameters.[0].Value
 
@@ -914,8 +849,6 @@ module SqlTest =
   let ``prepare : dialect root expr : date : Nullable`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* date bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box (Nullable bbb), typeof<Nullable<DateTime>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 23)) ps.Parameters.[0].Value
 
@@ -923,8 +856,6 @@ module SqlTest =
   let ``prepare : dialect root expr : Date`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* @Date bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box bbb, typeof<DateTime>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 23)) ps.Parameters.[0].Value
 
@@ -932,8 +863,6 @@ module SqlTest =
   let ``prepare : dialect root expr : nextDate`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* nextDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box bbb, typeof<DateTime>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 24)) ps.Parameters.[0].Value
 
@@ -941,8 +870,6 @@ module SqlTest =
   let ``prepare : dialect root expr : nextDate : null`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* nextDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (null, typeof<obj>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal DBNull.Value ps.Parameters.[0].Value
 
@@ -950,8 +877,6 @@ module SqlTest =
   let ``prepare : dialect root expr : nextDate : option`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* nextDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box (Some bbb), typeof<option<DateTime>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 24)) ps.Parameters.[0].Value
 
@@ -959,8 +884,6 @@ module SqlTest =
   let ``prepare : dialect root expr : nextDate : Nullable`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* nextDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box (Nullable bbb), typeof<Nullable<DateTime>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 24)) ps.Parameters.[0].Value
 
@@ -968,8 +891,6 @@ module SqlTest =
   let ``prepare : dialect root expr : NextDate`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* @NextDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box bbb, typeof<DateTime>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 24)) ps.Parameters.[0].Value
 
@@ -977,8 +898,6 @@ module SqlTest =
   let ``prepare : dialect root expr : prevDate`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* prevDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box bbb, typeof<DateTime>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 22)) ps.Parameters.[0].Value
 
@@ -986,8 +905,6 @@ module SqlTest =
   let ``prepare : dialect root expr : prevDate : null`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* prevDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (null, typeof<obj>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal DBNull.Value ps.Parameters.[0].Value
 
@@ -995,8 +912,6 @@ module SqlTest =
   let ``prepare : dialect root expr : prevDate : option`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* prevDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box (Some bbb), typeof<option<DateTime>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 22)) ps.Parameters.[0].Value
 
@@ -1004,8 +919,6 @@ module SqlTest =
   let ``prepare : dialect root expr : prevDate Nullable`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* prevDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box (Nullable bbb), typeof<Nullable<DateTime>>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 22)) ps.Parameters.[0].Value
 
@@ -1013,16 +926,12 @@ module SqlTest =
   let ``prepare : dialect root expr : PrevDate`` () =
     let bbb = DateTime(2011, 1, 23, 12, 13, 14)
     let ps = Sql.prepare config "select * from aaa where bbb > /* @PrevDate bbb */'2000-01-01 00:00:00'" (dict ["bbb", (box bbb, typeof<DateTime>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal (DateTime(2011, 1, 22)) ps.Parameters.[0].Value
 
   [<Test>]
   let ``prepare : dialect root expr : charString`` () =
     let ps = Sql.prepare config "select * from aaa where bbb = /* charString bbb */''" (dict ["bbb", (box "abc", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "abc" ps.Parameters.[0].Value
     assert_equal DbType.StringFixedLength ps.Parameters.[0].DbType
@@ -1030,8 +939,6 @@ module SqlTest =
   [<Test>]
   let ``prepare : dialect root expr : charString : option`` () =
     let ps = Sql.prepare config "select * from aaa where bbb = /* charString bbb */''" (dict ["bbb", (box <| Some "abc", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "abc" ps.Parameters.[0].Value
     assert_equal DbType.StringFixedLength ps.Parameters.[0].DbType
@@ -1039,8 +946,6 @@ module SqlTest =
   [<Test>]
   let ``prepare : dialect root expr : CharString`` () =
     let ps = Sql.prepare config "select * from aaa where bbb = /* @CharString bbb */''" (dict ["bbb", (box "abc", typeof<string>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 1 ps.Parameters.Length
     assert_equal "abc" ps.Parameters.[0].Value
     assert_equal DbType.StringFixedLength ps.Parameters.[0].DbType
@@ -1048,8 +953,6 @@ module SqlTest =
   [<Test>]
   let ``prepare : dialect root expr : charStringList`` () =
     let ps = Sql.prepare config "select * from aaa where bbb in /* charStringList bbb */('')" (dict ["bbb", (box ["abc"; "def"], typeof<string list>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 2 ps.Parameters.Length
     assert_equal "abc" ps.Parameters.[0].Value
     assert_equal "def" ps.Parameters.[1].Value
@@ -1059,8 +962,6 @@ module SqlTest =
   [<Test>]
   let ``prepare : dialect root expr : charStringList : option`` () =
     let ps = Sql.prepare config "select * from aaa where bbb in /* charStringList bbb */('')" (dict ["bbb", (box [Some "abc"; Some "def"], typeof<string list>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 2 ps.Parameters.Length
     assert_equal "abc" ps.Parameters.[0].Value
     assert_equal "def" ps.Parameters.[1].Value
@@ -1070,8 +971,6 @@ module SqlTest =
   [<Test>]
   let ``prepare : dialect root expr : CharStringList`` () =
     let ps = Sql.prepare config "select * from aaa where bbb in /* @CharStringList bbb */('')" (dict ["bbb", (box ["abc"; "def"], typeof<string list>)]) parser
-    printfn "%s" ps.Text
-    printfn "%A" ps.Parameters
     assert_equal 2 ps.Parameters.Length
     assert_equal "abc" ps.Parameters.[0].Value
     assert_equal "def" ps.Parameters.[1].Value
@@ -1550,7 +1449,6 @@ module SqlTest =
       fail ()
     with
     | :? SqlException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA2016" ex.MessageId
     | ex -> 
       fail ex
@@ -1692,7 +1590,6 @@ module SqlTest =
       fail ()
     with 
     | :? SqlException as ex->
-      printf "%s" ex.Message
       assert_equal "SOMA2007" ex.MessageId
       assert_true (ex.Message.Contains "[SOMA1024]")
 
@@ -1714,7 +1611,6 @@ module SqlTest =
       fail ()
     with 
     | :? SqlException as ex->
-      printf "%s" ex.Message
       assert_equal "SOMA2007" ex.MessageId
       assert_true (ex.Message.Contains "[SOMA1025]")
 

@@ -68,7 +68,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1000" ex.MessageId
     | ex -> 
       fail ex
@@ -332,7 +331,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1019" ex.MessageId
     | ex -> 
       fail ex
@@ -356,7 +354,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1019" ex.MessageId
     | ex -> 
       fail ex
@@ -392,7 +389,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA1018" ex.MessageId
     | ex ->
       fail ex
@@ -613,7 +609,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1001" ex.MessageId
     | ex -> 
       fail ex 
@@ -625,7 +620,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex ->
-      printfn "%s" ex.Message
       assert_equal "SOMA1007" ex.MessageId
     | ex -> fail ex
   
@@ -759,7 +753,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1009" ex.MessageId 
     | ex -> 
       fail ex
@@ -771,7 +764,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1009" ex.MessageId 
     | ex -> 
       fail ex
@@ -840,7 +832,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1011" ex.MessageId 
     | ex -> 
       fail ex
@@ -852,7 +843,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1011" ex.MessageId 
     | ex -> 
       fail ex
@@ -882,7 +872,6 @@ module ExpressionTest =
       fail ()
     with 
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1004" ex.MessageId
     | ex -> 
       fail ex
@@ -906,7 +895,6 @@ module ExpressionTest =
       fail ()
     with 
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1003" ex.MessageId
     | ex -> 
       fail ex
@@ -944,7 +932,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1026" ex.MessageId
     | ex -> 
       fail ex
@@ -957,7 +944,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1003" ex.MessageId
     | ex -> 
       fail ex
@@ -984,7 +970,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1003" ex.MessageId
     | ex -> 
       fail ex
@@ -1004,7 +989,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1003" ex.MessageId
     | ex -> 
       fail ex
@@ -1022,7 +1006,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1006" ex.MessageId
     | ex -> 
       fail ex
@@ -1040,7 +1023,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1026" ex.MessageId
     | ex -> 
       fail ex
@@ -1058,7 +1040,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1026" ex.MessageId
     | ex -> 
       fail ex
@@ -1082,7 +1063,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1027" ex.MessageId
     | ex -> 
       fail ex
@@ -1110,7 +1090,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1026" ex.MessageId
     | ex -> 
       fail ex
@@ -1190,7 +1169,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1021" ex.MessageId
     | ex -> 
       fail ex
@@ -1202,7 +1180,6 @@ module ExpressionTest =
       fail ()
     with
     | :? ExpressionException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA1022" ex.MessageId
     | ex -> 
       fail ex

@@ -111,7 +111,6 @@ module MetaTest =
       fail ()
     with
     | :? MetaException as ex -> 
-      printfn "%A" ex
       assert_equal "SOMA3001" ex.MessageId
 
   type Hoge14 = { [<Id(IdKind.Identity)>]Id1:int; [<Id(IdKind.Identity)>]Id2:int; [<Version>]Version:int }
@@ -123,7 +122,6 @@ module MetaTest =
       fail ()
     with
     | :? MetaException as ex -> 
-      printfn "%A" ex
       assert_equal "SOMA3002" ex.MessageId
 
   type Hoge15 = { [<Id>]Id1:int; [<Id(IdKind.Identity)>]Id2:int; [<Version>]Version:int }
@@ -135,7 +133,6 @@ module MetaTest =
       fail ()
     with
     | :? MetaException as ex -> 
-      printfn "%A" ex
       assert_equal "SOMA3003" ex.MessageId
 
   type Hoge16 = { [<Id>]Id:int; [<Version>]Version1:int; [<Version>]Version2:int }
@@ -147,7 +144,6 @@ module MetaTest =
       fail ()
     with
     | :? MetaException as ex -> 
-      printfn "%A" ex
       assert_equal "SOMA3004" ex.MessageId
 
   type Hoge17 = { [<Id>][<Version>]Id:int; Name:string }
@@ -159,7 +155,6 @@ module MetaTest =
       fail ()
     with
     | :? MetaException as ex -> 
-      printfn "%A" ex
       assert_equal "SOMA3005" ex.MessageId
 
   [<Table(Catalog = "CATALOG")>]
@@ -384,7 +379,6 @@ module MetaTest =
       fail ()
     with
     | :? MetaException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA3009" ex.MessageId
     | ex -> 
       fail ex
@@ -415,7 +409,6 @@ module MetaTest =
       fail ()
     with 
     | :? MetaException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA3000" ex.MessageId
     | ex -> 
       fail ex
@@ -448,7 +441,6 @@ module MetaTest =
       fail ()
     with
     | :? MetaException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA3006" ex.MessageId
     | ex -> 
       fail ex
@@ -462,7 +454,6 @@ module MetaTest =
       fail ()
     with
     | :? MetaException as ex -> 
-      printfn "%s" ex.Message
       assert_equal "SOMA3008" ex.MessageId
     | ex -> 
       fail ex
