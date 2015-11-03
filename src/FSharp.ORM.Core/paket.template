@@ -1,8 +1,10 @@
 type project
+id
+	FSharp.ORM
 owners
-    Toshihiro Nakamura
+    Xavier Zwirtz
 authors 
-    Toshihiro Nakamura
+    Xavier Zwirtz
 projectUrl
     http://github.com/xavierzwirtz/FSharp.ORM
 iconUrl
