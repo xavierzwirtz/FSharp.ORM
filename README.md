@@ -1,44 +1,21 @@
 [![Issue Stats](http://issuestats.com/github/fsprojects/ProjectScaffold/badge/issue)](http://issuestats.com/github/fsprojects/ProjectScaffold)
 [![Issue Stats](http://issuestats.com/github/fsprojects/ProjectScaffold/badge/pr)](http://issuestats.com/github/fsprojects/ProjectScaffold)
+[![NuGet Status](http://img.shields.io/nuget/v/FSharp.ORM.svg?style=flat)](https://www.nuget.org/packages/FSharp.ORM/)
 
-Soma - F# Sql Oriented MApping framework
+FSharp.ORM
 =====================================
 
-Soma is an O/R mapping framework developed in F#. 
+This project provides an idiomattic ORM for fsharp.
 
-Supported programming languages and RDBMS are followings:
+> Supported RDBMS
 
-> languages
-
-* F# 3.1
-* C# 4.0
-* Visual Basic 2010
-* PowerShell
-
-> RDBMS
-
-* Microsoft SQL Server 2008
+* Microsoft SQL Server 2008 forward.
 * Microsoft SQL Server Compact 4.0
 * Oracle Database 11g
 * MySQL 5.x.
 * SQLite 3
 
-## Installing
-
-Download Soma from the [codeplex downloads](http://soma.codeplex.com/releases/view/latest) page or 
-install using [NuGet](http://nuget.org/List/Packages/Soma).
-
-## Website
-
-For more information, see the website on codeplex.
-
-> Overview
-
-http://soma.codeplex.com/
-
-> Documentation
-
-http://soma.codeplex.com/documentation
+Documentation: http://xavierzwirtz.github.io/FSharp.ORM
 
 ## Contributing
 
@@ -51,5 +28,8 @@ Submit pull requests, make sure tests pass.
 
 ## Maintainer(s)
 
-- [@nakamura-to](https://github.com/nakamura-to)
-- [@voiceofwisdom](https://github.com/voiceofwisdom)
+- [@xavierzwirtz](https://github.com/xavierzwirtz)
+
+## Credits 
+
+Forked from the fantastic [Soma](https://github.com/nakamura-to/Soma) by [@nakamura-to](https://github.com/nakamura-to)
