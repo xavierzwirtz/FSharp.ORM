@@ -185,9 +185,9 @@ docs/content/license.md
 docs/content/release-notes.md
 
 #Project files
-src/Soma.Core/SqlLexer.fs
-src/Soma.Core/SqlParser.fs
-src/Soma.Core/SqlParser.fsi
-src/Soma.Core/ExpressionLexer.fs
-src/Soma.Core/ExpressionParser.fs
-src/Soma.Core/ExpressionParser.fsi
+src/FSharp.ORM.Core/SqlLexer.fs
+src/FSharp.ORM.Core/SqlParser.fs
+src/FSharp.ORM.Core/SqlParser.fsi
+src/FSharp.ORM.Core/ExpressionLexer.fs
+src/FSharp.ORM.Core/ExpressionParser.fs
+src/FSharp.ORM.Core/ExpressionParser.fsi

@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core
+namespace FSharp.ORM.Core
 
 open System
 open System.Collections.Generic
@@ -370,7 +370,7 @@ type IDialect =
   abstract EncloseIdentifier : identifier:string -> string
 
   /// <summary>Setups the <c>System.Data.Common.DbParameter</c>.</summary>
-  /// <param name="param">The Soma SQL parameter.</param>
+  /// <param name="param">The FSharp.ORM SQL parameter.</param>
   /// <param name="dbParam">The ADO.NET DB parameter.</param>
   abstract SetupDbParameter : param:PreparedParameter * dbParam:DbParameter -> unit
 

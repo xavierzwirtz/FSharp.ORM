@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core
+namespace FSharp.ORM.Core
 
 module Text =
 

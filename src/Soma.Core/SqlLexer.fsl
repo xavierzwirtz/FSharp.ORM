@@ -11,12 +11,12 @@
 //----------------------------------------------------------------------------
 
 {
-module internal Soma.Core.SqlLexer
+module internal FSharp.ORM.Core.SqlLexer
 open System
 open System.Text.RegularExpressions
 open Microsoft.FSharp.Text.Lexing
-open Soma.Core.SqlAst.LexHelper
-open Soma.Core.SqlParser
+open FSharp.ORM.Core.SqlAst.LexHelper
+open FSharp.ORM.Core.SqlParser
 
 let lexeme lexbuf =
     LexBuffer<char>.LexemeString lexbuf

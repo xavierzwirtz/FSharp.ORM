@@ -4,11 +4,11 @@ owners
 authors 
     Toshihiro Nakamura
 projectUrl
-    http://github.com/nakamura-to/Soma/Soma
+    http://github.com/xavierzwirtz/FSharp.ORM
 iconUrl
-    https://raw.githubusercontent.com/nakamura-to/Soma/Soma/master/docs/files/img/logo.png
+    https://raw.githubusercontent.com/xavierzwirtz/FSharp.ORM/master/docs/files/img/logo.png
 licenseUrl
-    http://github.com/nakamura-to/Soma/Soma/blob/master/LICENSE.txt
+    http://github.com/xavierzwirtz/FSharp.ORM/blob/master/LICENSE.txt
 requireLicenseAcceptance
     false
 copyright

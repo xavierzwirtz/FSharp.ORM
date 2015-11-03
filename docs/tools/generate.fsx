@@ -11,17 +11,17 @@
 // (This is the original behaviour of ProjectScaffold prior to multi project support)
 let referenceBinaries = []
 // Web site location for the generated documentation
-let website = "/Soma"
+let website = "/FSharp.ORM"
 
-let githubLink = "http://github.com/nakamura-to/Soma/Soma"
+let githubLink = "http://github.com/xavierzwirtz/FSharp.ORM"
 
 // Specify more information about your project
 let info =
-  [ "project-name", "Soma"
-    "project-author", "Toshihiro Nakamura"
+  [ "project-name", "FSharp.ORM"
+    "project-author", "Xavier Zwirtz"
     "project-summary", ".NET ORM, primarily for F#"
     "project-github", githubLink
-    "project-nuget", "http://nuget.org/packages/Soma" ]
+    "project-nuget", "http://nuget.org/packages/FSharp.ORM" ]
 
 // --------------------------------------------------------------------------------------
 // For typical project, no changes are needed below

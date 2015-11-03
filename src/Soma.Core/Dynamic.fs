@@ -1,4 +1,4 @@
-﻿namespace Soma.Core
+﻿namespace FSharp.ORM.Core
 
 open System
 open System.Collections

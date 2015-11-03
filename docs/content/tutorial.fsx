@@ -10,8 +10,8 @@ Introducing your project
 Say more
 
 *)
-#r "Soma.dll"
-open Soma
+#r "FSharp.ORM.dll"
+open FSharp.ORM
 
 Library.hello 0
 (**

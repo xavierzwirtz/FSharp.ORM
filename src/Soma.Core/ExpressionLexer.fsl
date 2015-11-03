@@ -11,12 +11,12 @@
 //----------------------------------------------------------------------------
 
 {
-module internal Soma.Core.ExpressionLexer
+module internal FSharp.ORM.Core.ExpressionLexer
 open System
 open Microsoft.FSharp.Text.Lexing
-open Soma.Core.ExpressionAst
-open Soma.Core.ExpressionAst.LexHelper
-open Soma.Core.ExpressionParser
+open FSharp.ORM.Core.ExpressionAst
+open FSharp.ORM.Core.ExpressionAst.LexHelper
+open FSharp.ORM.Core.ExpressionParser
 
 let lexeme lexbuf =
     LexBuffer<char>.LexemeString lexbuf

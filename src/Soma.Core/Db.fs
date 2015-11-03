@@ -9,7 +9,7 @@
 //
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
-namespace Soma.Core
+namespace FSharp.ORM.Core
 
 open System
 open System.Collections
@@ -220,7 +220,7 @@ module Conversion =
                 |> Seq.cast<obj>
                 |> Seq.iter (fun key -> dict.[string key] <- (d.[key], typeof<obj>))
                 dict
-            | _ -> raise <| Soma.Core.DbException(SR.SOMA4020())
+            | _ -> raise <| FSharp.ORM.Core.DbException(SR.SOMA4020())
 
 type IDb = 
     abstract DbConfig : IDbConfig
@@ -1339,7 +1339,7 @@ module DynamicOperations =
             let typ = 
                 if value = null then typeof<obj>
                 else value.GetType()
-            raise <| Soma.Core.DbException(SR.SOMA4027(typ.FullName, propName, destType.FullName), exn)
+            raise <| FSharp.ORM.Core.DbException(SR.SOMA4027(typ.FullName, propName, destType.FullName), exn)
     
     let inline (?<-) (dynamic : dynamic) (propName : string) (value : 'a) = dynamic.[propName] <- value
     

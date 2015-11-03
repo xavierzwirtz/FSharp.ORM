@@ -10,10 +10,10 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core
+namespace FSharp.ORM.Core
 
 open System
-open Soma.Core.Text
+open FSharp.ORM.Core.Text
 
 module SqlAst =
 

@@ -11,8 +11,8 @@
 //----------------------------------------------------------------------------
 
 %{
-open Soma.Core.SqlAst
-open Soma.Core.SqlAst.ParseHelper
+open FSharp.ORM.Core.SqlAst
+open FSharp.ORM.Core.SqlAst.ParseHelper
 %}
 
 %start start

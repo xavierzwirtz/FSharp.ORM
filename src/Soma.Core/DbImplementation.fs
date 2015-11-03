@@ -1,4 +1,4 @@
-﻿namespace Soma.Core
+﻿namespace FSharp.ORM.Core
 
 open System
 open System.Collections
@@ -38,7 +38,7 @@ type internal DbImpl(config : IDbConfig) as this =
     
     let checkCanDelete entityMeta = 
         if entityMeta.IdPropMetaList.IsEmpty then 
-            raise <| Soma.Core.DbException(SR.SOMA4005(entityMeta.Type.FullName))
+            raise <| FSharp.ORM.Core.DbException(SR.SOMA4005(entityMeta.Type.FullName))
         
     member this.NotifyConnectionOpen connection executer = 
         let userState = ref null
@@ -170,7 +170,7 @@ type internal DbImpl(config : IDbConfig) as this =
                 if dbValue = null then typeof<obj>
                 else dbValue.GetType()
             raise 
-            <| Soma.Core.DbException
+            <| FSharp.ORM.Core.DbException
                    (SR.SOMA4017(typ.FullName, propMeta.ColumnName, propMeta.Type.FullName, propMeta.PropName), exn))
     
     member this.MakeDynamicObjectList(reader : DbDataReader) = 
@@ -207,7 +207,7 @@ type internal DbImpl(config : IDbConfig) as this =
     
     member this.MakeTupleList (tupleMeta : TupleMeta) (reader : DbDataReader) = 
         let fieldCount = reader.FieldCount
-        if fieldCount < tupleMeta.BasicElementMetaList.Length then raise <| Soma.Core.DbException(SR.SOMA4010())
+        if fieldCount < tupleMeta.BasicElementMetaList.Length then raise <| FSharp.ORM.Core.DbException(SR.SOMA4010())
         let columnIndexes = this.CreateColumnIndexes reader
         
         let entityMappings = 
@@ -223,7 +223,7 @@ type internal DbImpl(config : IDbConfig) as this =
                     if dbValue = null then typeof<obj>
                     else dbValue.GetType()
                 raise 
-                <| Soma.Core.DbException
+                <| FSharp.ORM.Core.DbException
                        (SR.SOMA4018(typ.FullName, elMeta.Index, elMeta.Type.FullName, elMeta.Index), exn))
         
         seq { 
@@ -245,7 +245,7 @@ type internal DbImpl(config : IDbConfig) as this =
                 let typ = 
                     if dbValue = null then typeof<obj>
                     else dbValue.GetType()
-                raise <| Soma.Core.DbException(SR.SOMA4019(typ.FullName, typ.FullName), exn))
+                raise <| FSharp.ORM.Core.DbException(SR.SOMA4019(typ.FullName, typ.FullName), exn))
         seq { 
             while reader.Read() do
                 let dbValue = dialect.GetValue(reader, 0, null)
@@ -286,24 +286,24 @@ type internal DbImpl(config : IDbConfig) as this =
     
     member this.FindCore<'T, 'TResult> (idList : obj list) 
            (resultHandler : 'T option -> PropMeta option -> PreparedStatement -> 'TResult) = 
-        if idList.IsEmpty then raise <| Soma.Core.DbException(SR.SOMA4004())
+        if idList.IsEmpty then raise <| FSharp.ORM.Core.DbException(SR.SOMA4004())
         let readerHandler, entityMeta = 
             let typ = typeof<'T>
             if Meta.isEntityType typ then 
                 let entityMeta = Meta.makeEntityMeta typ dialect
-                if entityMeta.IdPropMetaList.IsEmpty then raise <| Soma.Core.DbException(SR.SOMA4005(typ.FullName))
+                if entityMeta.IdPropMetaList.IsEmpty then raise <| FSharp.ORM.Core.DbException(SR.SOMA4005(typ.FullName))
                 else 
                     if entityMeta.IdPropMetaList.Length <> idList.Length then 
-                        raise <| Soma.Core.DbException(SR.SOMA4003(entityMeta.IdPropMetaList.Length, idList.Length))
+                        raise <| FSharp.ORM.Core.DbException(SR.SOMA4003(entityMeta.IdPropMetaList.Length, idList.Length))
                 this.MakeEntityList entityMeta, entityMeta
-            else raise <| Soma.Core.DbException(SR.SOMA4002())
+            else raise <| FSharp.ORM.Core.DbException(SR.SOMA4002())
         
         let ps = Sql.prepareFind config idList entityMeta
         let results = this.ExecuteReaderOnDemand ps readerHandler
         use enumerator = results.GetEnumerator()
         if enumerator.MoveNext() then 
             let entity = enumerator.Current
-            if enumerator.MoveNext() then raise <| Soma.Core.DbException(SR.SOMA4016(ps.Text, ps.Parameters))
+            if enumerator.MoveNext() then raise <| FSharp.ORM.Core.DbException(SR.SOMA4016(ps.Text, ps.Parameters))
             else resultHandler (Some(entity :?> 'T)) entityMeta.VersionPropMeta ps
         else resultHandler None entityMeta.VersionPropMeta ps
     
@@ -392,10 +392,10 @@ type internal DbImpl(config : IDbConfig) as this =
         this.ExecuteAndGetFirst ps readerHandler
     
     member this.FailCauseOfTooManyAffectedRows ps rows = 
-        raise <| Soma.Core.DbException(SR.SOMA4012(rows, ps.Text, ps.Parameters))
+        raise <| FSharp.ORM.Core.DbException(SR.SOMA4012(rows, ps.Text, ps.Parameters))
     
     member this.GetEntityMeta typ = 
-        if not <| Meta.isEntityType typ then raise <| Soma.Core.DbException(SR.SOMA4007())
+        if not <| Meta.isEntityType typ then raise <| FSharp.ORM.Core.DbException(SR.SOMA4007())
         Meta.makeEntityMeta typ dialect
     
     member this.ConvertFromColumnToPropIfNecessary (dbValueMap : Map<int, obj>) (propMeta : PropMeta, value) = 
@@ -525,7 +525,7 @@ type internal DbImpl(config : IDbConfig) as this =
     member this.Update<'T when 'T : not struct>(entity : 'T, ?opt : UpdateOpt) = 
         let typ = typeof<'T>
         let entityMeta = this.GetEntityMeta typ
-        if entityMeta.IdPropMetaList.IsEmpty then raise <| Soma.Core.DbException(SR.SOMA4005(typ.FullName))
+        if entityMeta.IdPropMetaList.IsEmpty then raise <| FSharp.ORM.Core.DbException(SR.SOMA4005(typ.FullName))
         let opt = defaultArg opt (UpdateOpt())
         let ps = Sql.prepareUpdate config entity entityMeta opt
         
@@ -659,7 +659,7 @@ type internal DbImpl(config : IDbConfig) as this =
         let typ = typeof<'T>
         
         let procedureMeta = 
-            if not <| Meta.isProcedureType typ then raise <| Soma.Core.DbException(SR.SOMA4021())
+            if not <| Meta.isProcedureType typ then raise <| FSharp.ORM.Core.DbException(SR.SOMA4021())
             Meta.makeProcedureMeta typ dialect
         
         let ps = Sql.prepareCall config procedure procedureMeta
@@ -671,7 +671,7 @@ type internal DbImpl(config : IDbConfig) as this =
                     if dbValue = null then typeof<obj>
                     else dbValue.GetType()
                 raise 
-                <| Soma.Core.DbException
+                <| FSharp.ORM.Core.DbException
                        (SR.SOMA4023
                             (typ.FullName, paramMeta.ParamName, procedureMeta.ProcedureName, paramMeta.Type.FullName), 
                         exn))

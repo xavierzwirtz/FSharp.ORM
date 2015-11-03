@@ -27,7 +27,7 @@ open SourceLink
 
 // The name of the project
 // (used by attributes in AssemblyInfo, name of a NuGet package and directory in 'src')
-let project = "Soma"
+let project = "FSharp.ORM"
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
@@ -38,27 +38,27 @@ let summary = ".NET ORM, primarily for F#"
 let description = ".NET ORM, primarily for F#"
 
 // List of author names (for NuGet package)
-let authors = [ "Toshihiro Nakamura" ]
+let authors = [ "Xavier Zwirtz" ]
 
 // Tags for your project (for NuGet package)
 let tags = "ORM F#"
 
 // File system information 
-let solutionFile  = "Soma.sln"
+let solutionFile  = "FSharp.ORM.sln"
 
 // Pattern specifying assemblies to be tested using NUnit
 let testAssemblies = "tests/**/bin/Release/*Tests*.dll"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
-let gitOwner = "nakamura-to/Soma" 
+let gitOwner = "xavierzwirtz/FSharp.ORM" 
 let gitHome = "https://github.com/" + gitOwner
 
 // The name of the project on GitHub
-let gitName = "Soma"
+let gitName = "FSharp.ORM"
 
 // The url for the raw files hosted
-let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/nakamura-to/Soma"
+let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/xavierzwirtz/FSharp.ORM"
 
 // --------------------------------------------------------------------------------------
 // END TODO: The rest of the file includes standard build steps

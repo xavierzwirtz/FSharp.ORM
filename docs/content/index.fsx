@@ -4,7 +4,7 @@
 #I "../../bin"
 
 (**
-Soma
+FSharp.ORM
 ======================
 
 Documentation
@@ -13,8 +13,8 @@ Documentation
   <div class="span1"></div>
   <div class="span6">
     <div class="well well-small" id="nuget">
-      The Soma library can be <a href="https://nuget.org/packages/Soma">installed from NuGet</a>:
-      <pre>PM> Install-Package Soma</pre>
+      The FSharp.ORM library can be <a href="https://nuget.org/packages/FSharp.ORM">installed from NuGet</a>:
+      <pre>PM> Install-Package FSharp.ORM</pre>
     </div>
   </div>
   <div class="span1"></div>
@@ -26,8 +26,8 @@ Example
 This example demonstrates using a function defined in this sample library.
 
 *)
-#r "Soma.dll"
-open Soma
+#r "FSharp.ORM.dll"
+open FSharp.ORM
 
 printfn "hello = %i" <| Library.hello 0
 
@@ -59,9 +59,9 @@ The library is available under Public Domain license, which allows modification 
 redistribution for both commercial and non-commercial purposes. For more information see the 
 [License file][license] in the GitHub repository. 
 
-  [content]: https://github.com/fsprojects/Soma/tree/master/docs/content
-  [gh]: https://github.com/fsprojects/Soma
-  [issues]: https://github.com/fsprojects/Soma/issues
-  [readme]: https://github.com/fsprojects/Soma/blob/master/README.md
-  [license]: https://github.com/fsprojects/Soma/blob/master/LICENSE.txt
+  [content]: https://github.com/fsprojects/FSharp.ORM/tree/master/docs/content
+  [gh]: https://github.com/fsprojects/FSharp.ORM
+  [issues]: https://github.com/fsprojects/FSharp.ORM/issues
+  [readme]: https://github.com/fsprojects/FSharp.ORM/blob/master/README.md
+  [license]: https://github.com/fsprojects/FSharp.ORM/blob/master/LICENSE.txt
 *)
