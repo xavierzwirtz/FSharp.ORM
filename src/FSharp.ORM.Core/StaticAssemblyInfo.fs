@@ -2,5 +2,5 @@
 open System.Reflection
 open System.Runtime.CompilerServices;
 
-[<assembly:InternalsVisibleTo("FSharp.ORM.Core.Tests")>]
+[<assembly:InternalsVisibleTo("FSharp.ORM.Tests")>]
 do ()

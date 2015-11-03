@@ -7,10 +7,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{007939d3-6636-4691-9acf-4a901819ec32}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Soma.Core.Tests</RootNamespace>
-    <AssemblyName>Soma.Core.Tests</AssemblyName>
+    <RootNamespace>FSharp.ORM.Tests</RootNamespace>
+    <AssemblyName>FSharp.ORM.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <Name>Soma.Core.Tests</Name>
+    <Name>FSharp.ORM.Tests</Name>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <NuGetPackageImportStamp>1ed01c0f</NuGetPackageImportStamp>
   </PropertyGroup>
@@ -22,7 +22,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\Soma.Core.Tests.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\FSharp.ORM.Tests.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +31,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\Soma.Core.Tests.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\FSharp.ORM.Tests.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
@@ -78,8 +78,8 @@
 	</Target>
 	-->
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Soma.Core\Soma.Core.fsproj">
-      <Name>Soma.Core</Name>
+    <ProjectReference Include="..\..\src\FSharp.ORM.Core\FSharp.ORM.Core.fsproj">
+      <Name>FSharp.ORM.Core</Name>
       <Project>{479c9175-94db-4847-b6b6-59928d3731b5}</Project>
       <Private>True</Private>
     </ProjectReference>

@@ -10,11 +10,11 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core.Tests
+namespace FSharp.ORM.Tests
 
 module UtilTest =
   open NUnit.Framework
-  open Soma.Core
+  open FSharp.ORM.Core
 
   [<Test>]
   let ``asOption`` () =
@@ -23,7 +23,7 @@ module UtilTest =
 
 module DictTest =
   open NUnit.Framework
-  open Soma.Core
+  open FSharp.ORM.Core
 
   [<Test>]
   let ``toList`` () =
@@ -42,7 +42,7 @@ module DictTest =
 
 module MapTest =
   open NUnit.Framework
-  open Soma.Core
+  open FSharp.ORM.Core
 
   [<Test>]
   let ``ofDict`` () =
@@ -51,7 +51,7 @@ module MapTest =
 
 module SeqTest =
   open NUnit.Framework
-  open Soma.Core
+  open FSharp.ORM.Core
 
   [<Test>]
   let ``peek`` () =
@@ -62,7 +62,7 @@ module SeqTest =
 module ReflectionTest =
   open System
   open NUnit.Framework
-  open Soma.Core
+  open FSharp.ORM.Core
 
   [<Test>]
   let ``isOptionType`` () =

@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core.Tests
+namespace FSharp.ORM.Tests
 
 module SqlTest = 
 
@@ -20,8 +20,8 @@ module SqlTest =
   open System.Globalization
   open Microsoft.FSharp.Text.Lexing
   open NUnit.Framework
-  open Soma.Core
-  open Soma.Core.SqlAst
+  open FSharp.ORM.Core
+  open FSharp.ORM.Core.SqlAst
 
   let private (|SingleNode|_|) statement = 
     match statement with Statement ([h]) -> Some h | _ -> None

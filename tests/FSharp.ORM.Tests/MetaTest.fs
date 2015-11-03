@@ -10,13 +10,13 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core.Tests
+namespace FSharp.ORM.Tests
 
 module MetaTest = 
 
   open System
   open NUnit.Framework
-  open Soma.Core
+  open FSharp.ORM.Core
 
   let dialect = MsSqlDialect(Func<Type, System.Data.DbType option>(fun t -> None)) :> IDialect
 

@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core.Tests
+namespace FSharp.ORM.Tests
 
 module DbTest = 
 
@@ -19,7 +19,7 @@ module DbTest =
   open System.ComponentModel
   open System.Collections
   open NUnit.Framework
-  open Soma.Core
+  open FSharp.ORM.Core
 
   let config = 
      { new MsSqlConfig() with

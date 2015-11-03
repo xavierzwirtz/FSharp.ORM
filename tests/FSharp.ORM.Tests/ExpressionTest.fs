@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core.Tests
+namespace FSharp.ORM.Tests
 
 module ExpressionTest =
   open System
@@ -21,9 +21,9 @@ module ExpressionTest =
   open Microsoft.FSharp.Quotations
   open Microsoft.FSharp.Reflection
   open NUnit.Framework
-  open Soma.Core
-  open Soma.Core.Text
-  open Soma.Core.ExpressionAst
+  open FSharp.ORM.Core
+  open FSharp.ORM.Core.Text
+  open FSharp.ORM.Core.ExpressionAst
 
   type Hoge = { Name : string }
 

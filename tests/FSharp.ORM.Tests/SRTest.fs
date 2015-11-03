@@ -10,25 +10,21 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace Soma.Core.Tests
+namespace FSharp.ORM.Tests
 
-module SpikeTest = 
-
-  open System
-  open System.Data
-  open System.Collections
-  open System.Collections.Generic
-  open System.Reflection
+module SRTest =
+  open System.Globalization
   open NUnit.Framework
-  open Microsoft.FSharp.Reflection
-  open Microsoft.FSharp.Quotations
-  open Microsoft.FSharp.Quotations.Patterns
-  open Microsoft.FSharp.Quotations.DerivedPatterns
-  open Microsoft.FSharp.Quotations.ExprShape
-  open System.Text.RegularExpressions
-  open Soma.Core
-  
-  [<Test>]
-  let test () =
-    ()
+  open FSharp.ORM.Core
 
+  [<Test>]
+  [<SetUICulture("ja")>]
+  let ``test jp`` () =
+    let message = SR.SOMA0001 ()
+    assert_equal "テスト" message.Text
+
+  [<Test>]
+  [<SetUICulture("")>]
+  let ``test neutral`` () =
+    let message = SR.SOMA0001 ()
+    assert_equal "test" message.Text
