@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Db - FSharp.ORM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Xavier Zwirtz"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FSharp.ORM/content/style.css" />
+    <script type="text/javascript" src="/FSharp.ORM/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/xavierzwirtz/FSharp.ORM">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FSharp.ORM/index.html">FSharp.ORM</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Db</h1>
+<div class="xmldoc">
+<p>Implements FSharp.ORM.IDb.</p>
+</div>
+  <h3>Constructors</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Constructor</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '167', 167)" onmouseover="showTip(event, '167', 167)">
+            new(config)
+          </code>
+          <div class="tip" id="167">
+            <strong>Signature:</strong> config:IDbConfig -&gt; Db<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L257-257" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Initializes a Db instance.</p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Instance members</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Instance member</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '168', 168)" onmouseover="showTip(event, '168', 168)">
+            Call(procedure)
+          </code>
+          <div class="tip" id="168">
+            <strong>Signature:</strong> procedure:&#39;T -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L445-445" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Calls the stored procedure.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '169', 169)" onmouseover="showTip(event, '169', 169)">
+            DbConfig
+          </code>
+          <div class="tip" id="169">
+            <strong>Signature:</strong> IDbConfig<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L260-260" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Gets the databse configuration.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '170', 170)" onmouseover="showTip(event, '170', 170)">
+            Delete(entity, opt)
+          </code>
+          <div class="tip" id="170">
+            <strong>Signature:</strong> (entity:&#39;T * opt:DeleteOpt) -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L438-438" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Deletes the entity.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '171', 171)" onmouseover="showTip(event, '171', 171)">
+            Delete(entity)
+          </code>
+          <div class="tip" id="171">
+            <strong>Signature:</strong> entity:&#39;T -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L432-432" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Deletes the entity.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '172', 172)" onmouseover="showTip(event, '172', 172)">
+            Execute(sql, condition)
+          </code>
+          <div class="tip" id="172">
+            <strong>Signature:</strong> (sql:string * condition:obj) -&gt; int<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L344-344" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Executes the arbitrary SQL.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '173', 173)" onmouseover="showTip(event, '173', 173)">
+            Execute(sql)
+          </code>
+          <div class="tip" id="173">
+            <strong>Signature:</strong> sql:string -&gt; int<br />
+              <strong>Modifiers:</strong> abstract<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L338-338" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Executes the arbitrary SQL.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '174', 174)" onmouseover="showTip(event, '174', 174)">
+            ExecuteReader(handler, sql, condition)
+          </code>
+          <div class="tip" id="174">
+            <strong>Signature:</strong> (handler:Func&lt;DbDataReader,&#39;T&gt; * sql:string * condition:obj) -&gt; &#39;T<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L359-359" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Executes the SQL and handles the reader.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '175', 175)" onmouseover="showTip(event, '175', 175)">
+            ExecuteReader(handler, sql)
+          </code>
+          <div class="tip" id="175">
+            <strong>Signature:</strong> (handler:Func&lt;DbDataReader,&#39;T&gt; * sql:string) -&gt; &#39;T<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L352-352" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Executes the SQL and handles the reader.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '176', 176)" onmouseover="showTip(event, '176', 176)">
+            Find(id)
+          </code>
+          <div class="tip" id="176">
+            <strong>Signature:</strong> id:obj -&gt; &#39;T<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L368-368" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Finds the entity.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '177', 177)" onmouseover="showTip(event, '177', 177)">
+            FindWithVersion(id, version)
+          </code>
+          <div class="tip" id="177">
+            <strong>Signature:</strong> (id:obj * version:obj) -&gt; &#39;T<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L382-382" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Finds the entity with the version.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '178', 178)" onmouseover="showTip(event, '178', 178)">
+            Insert(entity, opt)
+          </code>
+          <div class="tip" id="178">
+            <strong>Signature:</strong> (entity:&#39;T * opt:InsertOpt) -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L406-406" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Inserts the entity.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '179', 179)" onmouseover="showTip(event, '179', 179)">
+            Insert(entity)
+          </code>
+          <div class="tip" id="179">
+            <strong>Signature:</strong> entity:&#39;T -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L400-400" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Inserts the entity.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '180', 180)" onmouseover="showTip(event, '180', 180)">
+            InsertOrUpdate(entity)
+          </code>
+          <div class="tip" id="180">
+            <strong>Signature:</strong> entity:&#39;T -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L426-426" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Inserts the entity, or updates if it already exists.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '181', 181)" onmouseover="showTip(event, '181', 181)">
+            Paginate(sql, offset, limit, condition)
+          </code>
+          <div class="tip" id="181">
+            <strong>Signature:</strong> (sql:string * offset:int64 * limit:int64 * condition:obj) -&gt; IList&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L299-299" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Paginates the rows.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '182', 182)" onmouseover="showTip(event, '182', 182)">
+            Paginate(sql, offset, limit)
+          </code>
+          <div class="tip" id="182">
+            <strong>Signature:</strong> (sql:string * offset:int64 * limit:int64) -&gt; IList&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L292-292" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Paginates the rows.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '183', 183)" onmouseover="showTip(event, '183', 183)">
+            PaginateAndCount(...)
+          </code>
+          <div class="tip" id="183">
+            <strong>Signature:</strong> (sql:string * offset:int64 * limit:int64 * condition:obj) -&gt; IList&lt;&#39;T&gt; * int64<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L329-329" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Paginates the rows, and counts rows without the offset and the limit.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '184', 184)" onmouseover="showTip(event, '184', 184)">
+            PaginateAndCount(sql, offset, limit)
+          </code>
+          <div class="tip" id="184">
+            <strong>Signature:</strong> (sql:string * offset:int64 * limit:int64) -&gt; IList&lt;&#39;T&gt; * int64<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L322-322" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Paginates the rows, and counts rows without the offset and the limit.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '185', 185)" onmouseover="showTip(event, '185', 185)">
+            PaginateOnDemand(...)
+          </code>
+          <div class="tip" id="185">
+            <strong>Signature:</strong> (sql:string * offset:int64 * limit:int64 * condition:obj) -&gt; seq&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L314-314" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Paginates the rows on demand.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '186', 186)" onmouseover="showTip(event, '186', 186)">
+            PaginateOnDemand(sql, offset, limit)
+          </code>
+          <div class="tip" id="186">
+            <strong>Signature:</strong> (sql:string * offset:int64 * limit:int64) -&gt; seq&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L308-308" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Paginates the rows on demand.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '187', 187)" onmouseover="showTip(event, '187', 187)">
+            Query(sql, condition)
+          </code>
+          <div class="tip" id="187">
+            <strong>Signature:</strong> (sql:string * condition:obj) -&gt; IList&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L269-269" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Queries the rows.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '188', 188)" onmouseover="showTip(event, '188', 188)">
+            Query(sql)
+          </code>
+          <div class="tip" id="188">
+            <strong>Signature:</strong> sql:string -&gt; IList&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L262-262" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Queries the rows.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '189', 189)" onmouseover="showTip(event, '189', 189)">
+            Queryable()
+          </code>
+          <div class="tip" id="189">
+            <strong>Signature:</strong> unit -&gt; IQueryable&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L451-451" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates an IQueryable on 'T</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '190', 190)" onmouseover="showTip(event, '190', 190)">
+            QueryableDelete(query)
+          </code>
+          <div class="tip" id="190">
+            <strong>Signature:</strong> query:IQueryable&lt;&#39;T&gt; -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L457-457" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Deletes all values returned by query.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '191', 191)" onmouseover="showTip(event, '191', 191)">
+            QueryableDirectSql(query parametters)
+          </code>
+          <div class="tip" id="191">
+            <strong>Signature:</strong> query:seq&lt;Sql&gt; -&gt; parametters:seq&lt;Parameter&gt; -&gt; IQueryable&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L454-454" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Creates an IQueryable on 'T that executes specified query when enumerated.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '192', 192)" onmouseover="showTip(event, '192', 192)">
+            QueryOnDemand(sql, condition)
+          </code>
+          <div class="tip" id="192">
+            <strong>Signature:</strong> (sql:string * condition:obj) -&gt; seq&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L284-284" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Queries the rows on demand.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '193', 193)" onmouseover="showTip(event, '193', 193)">
+            QueryOnDemand(sql)
+          </code>
+          <div class="tip" id="193">
+            <strong>Signature:</strong> sql:string -&gt; seq&lt;&#39;T&gt;<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L278-278" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Queries the rows on demand.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '194', 194)" onmouseover="showTip(event, '194', 194)">
+            TryFind(id)
+          </code>
+          <div class="tip" id="194">
+            <strong>Signature:</strong> id:obj -&gt; &#39;T<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L374-374" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Try to find the entity.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '195', 195)" onmouseover="showTip(event, '195', 195)">
+            TryFindWithVersion(id, version)
+          </code>
+          <div class="tip" id="195">
+            <strong>Signature:</strong> (id:obj * version:obj) -&gt; &#39;T<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L389-389" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Try to find the entity with the version.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '196', 196)" onmouseover="showTip(event, '196', 196)">
+            Update(entity, opt)
+          </code>
+          <div class="tip" id="196">
+            <strong>Signature:</strong> (entity:&#39;T * opt:UpdateOpt) -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L419-419" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Updates the entity.</p>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '197', 197)" onmouseover="showTip(event, '197', 197)">
+            Update(entity)
+          </code>
+          <div class="tip" id="197">
+            <strong>Signature:</strong> entity:&#39;T -&gt; unit<br />
+              <strong>Modifiers:</strong> abstract<br />
+                          <strong>Type parameters:</strong> 'T          </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/xavierzwirtz/FSharp.ORM/tree/master/src/FSharp.ORM/Db.fs#L413-413" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Updates the entity.</p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FSharp.ORM/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FSharp.ORM</li>
+            <li><a href="/FSharp.ORM/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/FSharp.ORM">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/xavierzwirtz/FSharp.ORM">Source Code on GitHub</a></li>
+            <li><a href="/FSharp.ORM/license.html">License</a></li>
+            <li><a href="/FSharp.ORM/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/FSharp.ORM/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FSharp.ORM/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/xavierzwirtz/FSharp.ORM"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
