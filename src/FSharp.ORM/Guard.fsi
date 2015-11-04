@@ -10,12 +10,9 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
+open System
 
-module Text =
+module internal Guard = 
 
-  type Location = 
-    { pos_fname : string; 
-      pos_lnum : int; 
-      pos_bol : int; 
-      pos_cnum : int; }
+  val inline argNotNull : 'a * string -> unit

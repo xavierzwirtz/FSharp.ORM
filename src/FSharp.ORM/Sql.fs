@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
 
 open System
 open System.Collections
@@ -24,10 +24,10 @@ open System.Reflection
 open Microsoft.FSharp.Reflection
 open Microsoft.FSharp.Text.Lexing
 open Microsoft.FSharp.Text.Parsing
-open FSharp.ORM.Core
-open FSharp.ORM.Core.SqlAst
-open FSharp.ORM.Core.Text
-open FSharp.ORM.Core.SqlParser
+open FSharp.ORM
+open FSharp.ORM.SqlAst
+open FSharp.ORM.Text
+open FSharp.ORM.SqlParser
 
 exception NoInsertablePropertyException of unit with
     override this.Message =

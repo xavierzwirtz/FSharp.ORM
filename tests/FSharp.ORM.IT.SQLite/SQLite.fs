@@ -14,7 +14,7 @@ namespace FSharp.ORM.IT
 
 open System
 open System.Data.Common
-open FSharp.ORM.Core
+open FSharp.ORM
 
 module SQLite = 
 

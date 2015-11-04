@@ -1,4 +1,4 @@
-﻿namespace FSharp.ORM.Core
+﻿namespace FSharp.ORM
 
 exception NoAffectedRowException of PreparedStatement with
   override this.Message =

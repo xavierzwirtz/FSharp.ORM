@@ -14,7 +14,7 @@ namespace FSharp.ORM.Tests
 
 module UtilTest =
   open NUnit.Framework
-  open FSharp.ORM.Core
+  open FSharp.ORM
 
   [<Test>]
   let ``asOption`` () =
@@ -23,7 +23,7 @@ module UtilTest =
 
 module DictTest =
   open NUnit.Framework
-  open FSharp.ORM.Core
+  open FSharp.ORM
 
   [<Test>]
   let ``toList`` () =
@@ -42,7 +42,7 @@ module DictTest =
 
 module MapTest =
   open NUnit.Framework
-  open FSharp.ORM.Core
+  open FSharp.ORM
 
   [<Test>]
   let ``ofDict`` () =
@@ -51,7 +51,7 @@ module MapTest =
 
 module SeqTest =
   open NUnit.Framework
-  open FSharp.ORM.Core
+  open FSharp.ORM
 
   [<Test>]
   let ``peek`` () =
@@ -62,7 +62,7 @@ module SeqTest =
 module ReflectionTest =
   open System
   open NUnit.Framework
-  open FSharp.ORM.Core
+  open FSharp.ORM
 
   [<Test>]
   let ``isOptionType`` () =

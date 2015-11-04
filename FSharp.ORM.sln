@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8E6D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ED8079DD-2B06-4030-9F0F-DC548F98E1C4}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.ORM.Core", "src\FSharp.ORM.Core\FSharp.ORM.Core.fsproj", "{479C9175-94DB-4847-B6B6-59928D3731B5}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.ORM", "src\FSharp.ORM\FSharp.ORM.fsproj", "{479C9175-94DB-4847-B6B6-59928D3731B5}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.ORM.Tests", "tests\FSharp.ORM.Tests\FSharp.ORM.Tests.fsproj", "{007939D3-6636-4691-9ACF-4A901819EC32}"
 EndProject

@@ -1,6 +1,6 @@
 ﻿[<AutoOpen>]
 module Models
-open FSharp.ORM.Core
+open FSharp.ORM
 
 type Department =
     { [<Id>]

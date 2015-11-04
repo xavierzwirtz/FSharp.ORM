@@ -10,13 +10,12 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
 
-open System
+module Text =
 
-module Guard =
-
-  let inline argNotNull (arg, parameterName) =
-    match box arg with
-    | null -> invalidArg parameterName ""
-    | _ -> ()
+  type Location = 
+    { pos_fname : string; 
+      pos_lnum : int; 
+      pos_bol : int; 
+      pos_cnum : int; }

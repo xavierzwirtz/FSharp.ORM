@@ -1,4 +1,4 @@
-﻿namespace FSharp.ORM.Core
+﻿namespace FSharp.ORM
 
 open System
 open System.Collections

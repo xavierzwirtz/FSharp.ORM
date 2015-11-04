@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
 
 open System
 open System.Collections
@@ -20,10 +20,10 @@ open System.Reflection
 open Microsoft.FSharp.Text.Lexing
 open Microsoft.FSharp.Text.Parsing
 open Microsoft.FSharp.Reflection
-open FSharp.ORM.Core
-open FSharp.ORM.Core.Text
-open FSharp.ORM.Core.ExpressionAst
-open FSharp.ORM.Core.ExpressionParser
+open FSharp.ORM
+open FSharp.ORM.Text
+open FSharp.ORM.ExpressionAst
+open FSharp.ORM.ExpressionParser
 
 type internal ExpressionException (message:Message, ?innerException:exn) =
   inherit InvalidOperationException (message.Format (), match innerException with Some ex -> ex | _ -> null)

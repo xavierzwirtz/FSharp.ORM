@@ -1,7 +1,7 @@
 ﻿namespace System
 open System.Reflection
 
-[<assembly: AssemblyTitleAttribute("FSharp.ORM.Core")>]
+[<assembly: AssemblyTitleAttribute("FSharp.ORM")>]
 [<assembly: AssemblyProductAttribute("FSharp.ORM")>]
 [<assembly: AssemblyDescriptionAttribute(".NET ORM, primarily for F#")>]
 [<assembly: AssemblyVersionAttribute("1.0.0")>]

@@ -78,7 +78,7 @@
 	</Target>
 	-->
   <ItemGroup>
-    <ProjectReference Include="..\..\src\FSharp.ORM.Core\FSharp.ORM.Core.fsproj">
+    <ProjectReference Include="..\..\src\FSharp.ORM\FSharp.ORM.fsproj">
       <Name>FSharp.ORM.Core</Name>
       <Project>{479c9175-94db-4847-b6b6-59928d3731b5}</Project>
       <Private>True</Private>

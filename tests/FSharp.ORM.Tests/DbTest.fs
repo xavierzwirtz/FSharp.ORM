@@ -19,7 +19,7 @@ module DbTest =
   open System.ComponentModel
   open System.Collections
   open NUnit.Framework
-  open FSharp.ORM.Core
+  open FSharp.ORM
 
   let config = 
      { new MsSqlConfig() with

@@ -26,7 +26,7 @@ module SpikeTest =
   open Microsoft.FSharp.Quotations.DerivedPatterns
   open Microsoft.FSharp.Quotations.ExprShape
   open System.Text.RegularExpressions
-  open FSharp.ORM.Core
+  open FSharp.ORM
   
   [<Test>]
   let test () =

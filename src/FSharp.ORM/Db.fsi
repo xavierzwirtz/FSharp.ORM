@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
 
 open System
 open System.ComponentModel
@@ -25,7 +25,7 @@ open System.Linq.Expressions
 type Sql = FSharp.QueryProvider.QueryOperations.Sql
 type Parameter = FSharp.QueryProvider.QueryOperations.Parameter
 
-/// <summary>Represents a base class of the FSharp.ORM.Core.IDbConfig.</summary>
+/// <summary>Represents a base class of the FSharp.ORM.IDbConfig.</summary>
 [<AbstractClass>]
 type DbConfigBase =
   interface IDbConfig
@@ -270,14 +270,14 @@ type IDb =
   /// <summary>Executes the arbitrary SQL.</summary>
   /// <param name="sql">The SQL.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : sql:string -> int
 
   /// <summary>Executes the arbitrary SQL.</summary>
   /// <param name="sql">The SQL.</param>
   /// <param name="condition">The condition.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : sql:string * condition:obj -> int
 
   /// <summary>Executes the SQL and handles the reader.</summary>
@@ -296,7 +296,7 @@ type IDb =
   /// <summary>Finds the entity.</summary>
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
   abstract Find<'T when 'T : not struct and 'T : (new : unit -> 'T)> : id:obj -> 'T
 
   /// <summary>Try to find the entity.</summary>
@@ -308,73 +308,73 @@ type IDb =
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   abstract FindWithVersion<'T when 'T : not struct and 'T : (new : unit -> 'T)> : id:obj * version:obj -> 'T
 
   /// <summary>Try to find the entity with the version.</summary>
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity or null.</returns>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   abstract TryFindWithVersion<'T when 'T : not struct and 'T : (new : unit -> 'T) and 'T : null>  : id:obj * version:obj -> 'T
 
   /// <summary>Inserts the entity.</summary>
   /// <param name="entity">The entity.</param>
   /// <returns>The inserted entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   abstract Insert<'T when 'T : not struct> : entity:'T -> unit
 
   /// <summary>Inserts the entity.</summary>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
   /// <returns>The inserted entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   abstract Insert<'T when 'T : not struct> : entity:'T * opt:InsertOpt -> unit
 
   /// <summary>Updates the entity.</summary>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract Update<'T when 'T : not struct> : entity:'T -> unit
 
   /// <summary>Updates the entity.</summary>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract Update<'T when 'T : not struct> : entity:'T * opt:UpdateOpt -> unit
 
   /// <summary>Inserts the entity, or updates if it already exists.</summary>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract InsertOrUpdate<'T when 'T : not struct> : entity:'T -> unit
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   abstract Delete<'T when 'T : not struct> : entity:'T -> unit
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   abstract Delete<'T when 'T : not struct> : entity:'T * opt:DeleteOpt -> unit
 
   /// <summary>Calls the stored procedure.</summary>
   /// <param name="procedure">The stored procedure.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Call<'T when 'T : not struct> : procedure:'T -> unit
 
   /// <summary>Creates an IQueryable on 'T</summary>
@@ -392,11 +392,11 @@ type IDb =
 
   /// <summary>Deletes all values returned by query.</summary>
   /// <param name="query">The query which values will be deleted.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   abstract QueryableDelete<'T when 'T : not struct> : query:System.Linq.IQueryable<'T> -> unit
 
-/// <summary>Implements <c>FSharp.ORM.Core.IDb</c>.</summary>
+/// <summary>Implements <c>FSharp.ORM.IDb</c>.</summary>
 /// <exception cref="System.ArgumentNullException">Thrown when any arguments are null.</exception>
 type Db =
   interface IDb
@@ -477,14 +477,14 @@ type Db =
   /// <summary>Executes the arbitrary SQL.</summary>
   /// <param name="sql">The SQL.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : sql:string -> int
 
   /// <summary>Executes the arbitrary SQL.</summary>
   /// <param name="sql">The SQL.</param>
   /// <param name="condition">The condition.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : sql:string * condition:obj -> int
 
   /// <summary>Executes the SQL and handles the reader.</summary>
@@ -503,7 +503,7 @@ type Db =
   /// <summary>Finds the entity.</summary>
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
   abstract Find<'T when 'T : not struct and 'T : (new : unit -> 'T)> : id:obj -> 'T
 
   /// <summary>Try to find the entity.</summary>
@@ -515,71 +515,71 @@ type Db =
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   abstract FindWithVersion<'T when 'T : not struct and 'T : (new : unit -> 'T)> : id:obj * version:obj -> 'T
 
   /// <summary>Try to find the entity with the version.</summary>
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity or null.</returns>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   abstract TryFindWithVersion<'T when 'T : not struct and 'T : (new : unit -> 'T) and 'T : null>  : id:obj * version:obj -> 'T
 
   /// <summary>Inserts the entity.</summary>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   abstract Insert<'T when 'T : not struct> : entity:'T -> unit
 
   /// <summary>Inserts the entity.</summary>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   abstract Insert<'T when 'T : not struct> : entity:'T * opt:InsertOpt -> unit
 
   /// <summary>Updates the entity.</summary>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract Update<'T when 'T : not struct> : entity:'T -> unit
 
   /// <summary>Updates the entity.</summary>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract Update<'T when 'T : not struct> : entity:'T * opt:UpdateOpt -> unit
 
   /// <summary>Inserts the entity, or updates if it already exists.</summary>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract InsertOrUpdate<'T when 'T : not struct> : entity:'T -> unit
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   abstract Delete<'T when 'T : not struct> : entity:'T -> unit
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   abstract Delete<'T when 'T : not struct> : entity:'T * opt:DeleteOpt -> unit
 
   /// <summary>Calls the stored procedure.</summary>
   /// <param name="procedure">The stored procedure.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Call<'T when 'T : not struct> : procedure:'T -> unit
 
   /// <summary>Creates an IQueryable on 'T</summary>
@@ -597,7 +597,7 @@ type Db =
 
   /// <summary>Deletes all values returned by query.</summary>
   /// <param name="query">The query which values will be deleted.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
   abstract QueryableDelete<'T when 'T : not struct> : query:System.Linq.IQueryable<'T> -> unit
   
 /// <summary>Represents operations on the local Database.</summary>
@@ -689,7 +689,7 @@ type ILocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="sql">The SQL.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : connection:DbConnection * sql:string -> int
 
   /// <summary>Executes the arbitrary SQL.</summary>
@@ -697,7 +697,7 @@ type ILocalDb =
   /// <param name="sql">The SQL.</param>
   /// <param name="condition">The condition.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : connection:DbConnection * sql:string * condition:obj -> int
 
   /// <summary>Executes the SQL and handles the reader.</summary>
@@ -717,7 +717,7 @@ type ILocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
   abstract Find<'T when 'T : not struct and 'T : (new : unit -> 'T)> : connection:DbConnection * id:obj -> 'T
 
   /// <summary>Try to find the entity.</summary>
@@ -731,8 +731,8 @@ type ILocalDb =
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   abstract FindWithVersion<'T when 'T : not struct and 'T : (new : unit -> 'T)> : connection:DbConnection * id:obj * version:obj -> 'T
 
   /// <summary>Try to find the entity with the version.</summary>
@@ -740,71 +740,71 @@ type ILocalDb =
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity or null.</returns>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   abstract TryFindWithVersion<'T when 'T : not struct and 'T : (new : unit -> 'T) and 'T : null>  : connection:DbConnection * id:obj * version:obj -> 'T
 
   /// <summary>Inserts the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   abstract Insert<'T when 'T : not struct> : connection:DbConnection * entity:'T -> unit
 
   /// <summary>Inserts the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   abstract Insert<'T when 'T : not struct> : connection:DbConnection * entity:'T * opt:InsertOpt -> unit
 
   /// <summary>Updates the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract Update<'T when 'T : not struct> : connection:DbConnection * entity:'T -> unit
 
   /// <summary>Updates the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract Update<'T when 'T : not struct> : connection:DbConnection * entity:'T * opt:UpdateOpt -> unit
 
   /// <summary>Inserts the entity, or updates if it already exists.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract InsertOrUpdate<'T when 'T : not struct> : connection:DbConnection * entity:'T -> unit
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   abstract Delete<'T when 'T : not struct> : connection:DbConnection * entity:'T -> unit
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   abstract Delete<'T when 'T : not struct> : connection:DbConnection * entity:'T * opt:DeleteOpt -> unit
 
   /// <summary>Calls the stored procedure.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="procedure">The stored procedure.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Call<'T when 'T : not struct> : connection:DbConnection * procedure:'T -> unit
 
   /// <summary>Creates an IQueryable on 'T</summary>
@@ -826,14 +826,14 @@ type ILocalDb =
   /// <summary>Deletes all values returned by query.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="query">The query which values will be deleted.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
   abstract QueryableDelete<'T when 'T : not struct> : connection:DbConnection * query:System.Linq.IQueryable<'T> -> unit
 
   /// <summary>Creates the connection.</summary>
   /// <returns>The connection.</returns>
   abstract CreateConnection : unit -> DbConnection
 
-/// <summary>Implements <c>FSharp.ORM.Core.ILocalDb</c>.</summary>
+/// <summary>Implements <c>FSharp.ORM.ILocalDb</c>.</summary>
 /// <exception cref="System.ArgumentNullException">Thrown when any arguments are null.</exception>
 type LocalDb =
   interface ILocalDb
@@ -926,7 +926,7 @@ type LocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="sql">The SQL.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : connection:DbConnection * sql:string -> int
 
   /// <summary>Executes the arbitrary SQL.</summary>
@@ -934,7 +934,7 @@ type LocalDb =
   /// <param name="sql">The SQL.</param>
   /// <param name="condition">The condition.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : connection:DbConnection * sql:string * condition:obj -> int
 
   /// <summary>Executes the SQL and handles the reader.</summary>
@@ -954,7 +954,7 @@ type LocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
   abstract Find<'T when 'T : not struct and 'T : (new : unit -> 'T)> : connection:DbConnection * id:obj -> 'T
 
   /// <summary>Try to find the entity.</summary>
@@ -968,8 +968,8 @@ type LocalDb =
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   abstract FindWithVersion<'T when 'T : not struct and 'T : (new : unit -> 'T)> : connection:DbConnection * id:obj * version:obj -> 'T
 
   /// <summary>Try to find the entity with the version.</summary>
@@ -977,71 +977,71 @@ type LocalDb =
   /// <param name="id">The primary key or the list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity or null.</returns>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   abstract TryFindWithVersion<'T when 'T : not struct and 'T : (new : unit -> 'T) and 'T : null>  : connection:DbConnection * id:obj * version:obj -> 'T
 
   /// <summary>Inserts the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   abstract Insert<'T when 'T : not struct> : connection:DbConnection * entity:'T -> unit
 
   /// <summary>Inserts the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   abstract Insert<'T when 'T : not struct> : connection:DbConnection * entity:'T * opt:InsertOpt -> unit
 
   /// <summary>Updates the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract Update<'T when 'T : not struct> : connection:DbConnection * entity:'T -> unit
 
   /// <summary>Updates the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract Update<'T when 'T : not struct> : connection:DbConnection * entity:'T * opt:UpdateOpt -> unit
 
   /// <summary>Inserts the entity, or updates if it already exists.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   abstract InsertOrUpdate<'T when 'T : not struct> : connection:DbConnection * entity:'T -> unit
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   abstract Delete<'T when 'T : not struct> : connection:DbConnection * entity:'T -> unit
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   abstract Delete<'T when 'T : not struct> : connection:DbConnection * entity:'T  * opt:DeleteOpt -> unit
 
   /// <summary>Calls the stored procedure.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="procedure">The stored procedure.</param>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Call<'T when 'T : not struct> : connection:DbConnection * procedure:'T -> unit
 
   /// <summary>Creates an IQueryable on 'T</summary>
@@ -1063,7 +1063,7 @@ type LocalDb =
   /// <summary>Deletes all values returned by query.</summary>
   /// <param name="connection">The connection.</param>
   /// <param name="query">The query which values will be deleted.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
   abstract QueryableDelete<'T when 'T : not struct> : connection:DbConnection * query:System.Linq.IQueryable<'T> -> unit
 
   /// <summary>Creates the connection.</summary>
@@ -1150,14 +1150,14 @@ type PlainDb =
   /// <summary>Executes the arbitrary SQL.</summary>
   /// <param name="sql">The SQL.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : sql:string -> int
 
   /// <summary>Executes the arbitrary SQL.</summary>
   /// <param name="sql">The SQL.</param>
   /// <param name="condition">The condition.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   abstract Execute : sql:string * condition:IDictionary -> int
 
 /// <summary>Operations on the Database.</summary>
@@ -1212,7 +1212,7 @@ module Db =
   /// <param name="sql">The SQL.</param>
   /// <param name="condition">The condition.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   val execute : config:IDbConfig -> sql:string -> condition:(string * obj * Type) list -> int  
 
   /// <summary>Executes the SQL and handles the reader.</summary>
@@ -1227,7 +1227,7 @@ module Db =
   /// <param name="config">The database configuration.</param>
   /// <param name="id">The list of primary keys.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
   val find<'T when 'T : not struct> : config:IDbConfig -> id:obj list -> 'T
 
   /// <summary>Try to find the entity.</summary>
@@ -1241,8 +1241,8 @@ module Db =
   /// <param name="id">The list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   val findWithVersion<'T when 'T : not struct> : config:IDbConfig -> id:obj list -> version:obj -> 'T
 
   /// <summary>Try to find the entity with the version.</summary>
@@ -1250,15 +1250,15 @@ module Db =
   /// <param name="id">The list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity or <c>None</c>.</returns>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   val tryFindWithVersion<'T when 'T : not struct> : config:IDbConfig -> id:obj list -> version:obj -> 'T option
 
   /// <summary>Inserts the entity.</summary>
   /// <param name="config">The database configuration.</param>
   /// <param name="entity">The entity.</param>
   /// <returns>The inserted entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   val insert<'T when 'T : not struct> : config:IDbConfig -> entity:'T -> 'T
 
   /// <summary>Inserts the entity.</summary>
@@ -1266,18 +1266,18 @@ module Db =
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
   /// <returns>The inserted entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   val insertWithOpt<'T when 'T : not struct> : config:IDbConfig -> entity:'T -> opt:InsertOpt -> 'T
 
   /// <summary>Updates the entity.</summary>
   /// <param name="config">The database configuration.</param>
   /// <param name="entity">The entity.</param>
   /// <returns>The updated entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   val update<'T when 'T : not struct> : config:IDbConfig -> entity:'T -> 'T
 
   /// <summary>Updates the entity with options.</summary>
@@ -1285,40 +1285,40 @@ module Db =
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
   /// <returns>The updated entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   val updateWithOpt<'T when 'T : not struct> : config:IDbConfig -> entity:'T -> opt:UpdateOpt -> 'T
 
   /// <summary>Inserts the entity, or updates if it already exists.</summary>
   /// <param name="config">The database configuration.</param>
   /// <param name="entity">The entity.</param>
   /// <returns>The updated entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   val insertOrUpdate<'T when 'T : not struct> : config:IDbConfig -> entity:'T -> 'T
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="config">The database configuration.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   val delete<'T when 'T : not struct> : config:IDbConfig -> entity:'T -> unit
 
   /// <summary>Deletes the entity with options.</summary>
   /// <param name="config">The database configuration.</param>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   val deleteWithOpt<'T when 'T : not struct> : config:IDbConfig -> entity:'T -> opt:DeleteOpt -> unit
 
   /// <summary>Calls the stored procedure.</summary>
   /// <param name="config">The database configuration.</param>
   /// <param name="procedure">The stored procedure.</param>
   /// <returns>The called stored procedure.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   val call<'T when 'T : not struct> : config:IDbConfig -> procedure:'T -> 'T
   
   /// <summary>Creates an IQueryable on 'T</summary>
@@ -1340,7 +1340,7 @@ module Db =
   /// <summary>Deletes all values returned by query.</summary>
   /// <param name="config">The database configuration.</param>
   /// <param name="query">The query which values will be deleted.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
   val queryableDelete<'T when 'T : not struct> : config:IDbConfig -> query:System.Linq.IQueryable<'T> -> unit
 
 /// <summary>Operations on the local Database.</summary>
@@ -1400,7 +1400,7 @@ module LocalDb =
   /// <param name="sql">The SQL.</param>
   /// <param name="condition">The condition.</param>
   /// <returns>The affected rows.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   val execute : config:IDbConfig -> connection:DbConnection -> sql:string -> condition:(string * obj * Type) list ->  int
 
   /// <summary>Executes the SQL and handles the reader.</summary>
@@ -1417,7 +1417,7 @@ module LocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="id">The list of primary keys.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
   val find<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> id:obj list -> 'T
 
   /// <summary>Try to find the entity.</summary>
@@ -1433,8 +1433,8 @@ module LocalDb =
   /// <param name="id">The list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.EntityNotFoundException">Thrown when the entity is not found.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.EntityNotFoundException">Thrown when the entity is not found.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   val findWithVersion<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> id:obj list -> version:obj -> 'T
 
   /// <summary>Try to find the entity with the version.</summary>
@@ -1443,7 +1443,7 @@ module LocalDb =
   /// <param name="id">The list of primary keys.</param>
   /// <param name="version">The expected version.</param>
   /// <returns>The found entity or <c>None</c>.</returns>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the found entity version is different from the expected version.</exception>
   val tryFindWithVersion<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> id:obj list -> version:obj -> 'T option
 
   /// <summary>Inserts the entity.</summary>
@@ -1451,8 +1451,8 @@ module LocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <returns>The inserted entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   val insert<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> entity:'T -> 'T
 
   /// <summary>Inserts the entity.</summary>
@@ -1461,8 +1461,8 @@ module LocalDb =
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
   /// <returns>The inserted entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoInsertablePropertyException">Thrown when there is no insertable property.</exception>
   val insertWithOpt<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> entity:'T -> opt:InsertOpt -> 'T
 
   /// <summary>Updates the entity.</summary>
@@ -1470,10 +1470,10 @@ module LocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <returns>The updated entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   val update<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> entity:'T -> 'T
 
   /// <summary>Updates the entity without the version.</summary>
@@ -1482,9 +1482,9 @@ module LocalDb =
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
   /// <returns>The updated entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   val updateWithOpt<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> entity:'T -> opt:UpdateOpt -> 'T
 
   /// <summary>Inserts the entity, or updates if it already exists.</summary>
@@ -1492,18 +1492,18 @@ module LocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <returns>The updated entity.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoUpdatablePropertyException">Thrown when there is no updatable property.</exception>
   val insertOrUpdate<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> entity:'T -> 'T
 
   /// <summary>Deletes the entity.</summary>
   /// <param name="config">The database configuration.</param>
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   val delete<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> 'T -> unit
 
   /// <summary>Deletes the entity without the version.</summary>
@@ -1511,7 +1511,7 @@ module LocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="entity">The entity.</param>
   /// <param name="opt">The options.</param>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when and there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when and there is no affected row.</exception>
   val deleteWithOpt<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> entity:'T -> opt:DeleteOpt -> unit
 
   /// <summary>Calls the stored procedure.</summary>
@@ -1519,7 +1519,7 @@ module LocalDb =
   /// <param name="connection">The connection.</param>
   /// <param name="procedure">The stored procedure.</param>
   /// <returns>The called stored procedure.</returns>
-  /// <exception cref="FSharp.ORM.Core.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
+  /// <exception cref="FSharp.ORM.UniqueConstraintException">Thrown when a unique constraint violation is occurred.</exception>
   val call<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> procedure:'T -> 'T
 
   /// <summary>Creates the connection.</summary>
@@ -1550,8 +1550,8 @@ module LocalDb =
   /// <param name="config">The database configuration.</param>
   /// <param name="connection">The connection.</param>
   /// <param name="query">The query which values will be deleted.</param>
-  /// <exception cref="FSharp.ORM.Core.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
-  /// <exception cref="FSharp.ORM.Core.NoAffectedRowException">Thrown when there is no affected row.</exception>
+  /// <exception cref="FSharp.ORM.OptimisticLockException">Thrown when the entity version is different from the expected version.</exception>
+  /// <exception cref="FSharp.ORM.NoAffectedRowException">Thrown when there is no affected row.</exception>
   val queryableDelete<'T when 'T : not struct> : config:IDbConfig -> connection:DbConnection -> query:System.Linq.IQueryable<'T> -> unit
     
 /// <summary>The dynamic Operations.</summary>

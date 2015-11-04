@@ -10,7 +10,7 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
 
 open System
 open System.Collections.Generic
@@ -105,8 +105,8 @@ type internal SqlException =
 [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 module Sql =
   
-  open FSharp.ORM.Core.Text
-  open FSharp.ORM.Core.SqlAst
+  open FSharp.ORM.Text
+  open FSharp.ORM.SqlAst
 
   /// <summary>Parses the SQL.</summary>
   /// <param name="sql">The SQL.</param>
@@ -124,7 +124,7 @@ module Sql =
   val internal prepareDelete : IDbConfig -> obj -> EntityMeta -> DeleteOpt -> PreparedStatement
   val internal prepareCall : IDbConfig -> obj -> ProcedureMeta -> PreparedStatement
 
-/// <summary>Represents a base class of the FSharp.ORM.Core.IDialect.</summary>
+/// <summary>Represents a base class of the FSharp.ORM.IDialect.</summary>
 [<AbstractClass>]
 type DialectBase =
   interface IDialect

@@ -10,14 +10,13 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
 
-/// <summary>Provides the text operations.</summary>
-module Text =
+open System
 
-/// <summary>Represents the location of the token.</summary>  
-  type Location = 
-    { pos_fname : string; 
-      pos_lnum : int; 
-      pos_bol : int; 
-      pos_cnum : int; }
+module Guard =
+
+  let inline argNotNull (arg, parameterName) =
+    match box arg with
+    | null -> invalidArg parameterName ""
+    | _ -> ()

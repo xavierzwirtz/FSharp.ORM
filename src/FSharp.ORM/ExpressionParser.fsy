@@ -12,8 +12,8 @@
 
 %{
 open Microsoft.FSharp.Text.Parsing
-open FSharp.ORM.Core.ExpressionAst
-open FSharp.ORM.Core.ExpressionAst.ParseHelper
+open FSharp.ORM.ExpressionAst
+open FSharp.ORM.ExpressionAst.ParseHelper
 %}
 
 %start start

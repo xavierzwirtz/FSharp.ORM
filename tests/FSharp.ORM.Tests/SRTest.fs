@@ -15,7 +15,7 @@ namespace FSharp.ORM.Tests
 module SRTest =
   open System.Globalization
   open NUnit.Framework
-  open FSharp.ORM.Core
+  open FSharp.ORM
 
   [<Test>]
   [<SetUICulture("ja")>]

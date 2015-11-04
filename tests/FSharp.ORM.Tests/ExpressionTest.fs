@@ -21,9 +21,9 @@ module ExpressionTest =
   open Microsoft.FSharp.Quotations
   open Microsoft.FSharp.Reflection
   open NUnit.Framework
-  open FSharp.ORM.Core
-  open FSharp.ORM.Core.Text
-  open FSharp.ORM.Core.ExpressionAst
+  open FSharp.ORM
+  open FSharp.ORM.Text
+  open FSharp.ORM.ExpressionAst
 
   type Hoge = { Name : string }
 

@@ -10,9 +10,14 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
-open System
+namespace FSharp.ORM
 
-module internal Guard = 
+/// <summary>Provides the text operations.</summary>
+module Text =
 
-  val inline argNotNull : 'a * string -> unit
+/// <summary>Represents the location of the token.</summary>  
+  type Location = 
+    { pos_fname : string; 
+      pos_lnum : int; 
+      pos_bol : int; 
+      pos_cnum : int; }

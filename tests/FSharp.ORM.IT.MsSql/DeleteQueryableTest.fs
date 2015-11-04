@@ -17,7 +17,7 @@ open System.Data
 open System.Data.Common
 open System.Transactions
 open NUnit.Framework
-open FSharp.ORM.Core
+open FSharp.ORM
 
 module DeleteQueryableTest = 
 

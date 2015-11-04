@@ -16,7 +16,7 @@ module MetaTest =
 
   open System
   open NUnit.Framework
-  open FSharp.ORM.Core
+  open FSharp.ORM
 
   let dialect = MsSqlDialect(Func<Type, System.Data.DbType option>(fun t -> None)) :> IDialect
 

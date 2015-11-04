@@ -12,7 +12,7 @@
 namespace FSharp.ORM.IT
 
 open System
-open FSharp.ORM.Core
+open FSharp.ORM
 
 module MsSql = 
     let connectionObserver = 

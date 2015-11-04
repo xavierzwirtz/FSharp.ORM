@@ -10,12 +10,12 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
 
 open System
 open System.Collections.Generic
 open Microsoft.FSharp.Quotations
-open FSharp.ORM.Core.ExpressionAst
+open FSharp.ORM.ExpressionAst
 
 type internal ExpressionException =
   inherit InvalidOperationException

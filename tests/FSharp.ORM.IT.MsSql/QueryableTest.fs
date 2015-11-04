@@ -18,7 +18,7 @@ open System.Data
 open System.Data.Common
 open System.Transactions
 open NUnit.Framework
-open FSharp.ORM.Core
+open FSharp.ORM
 
 module QueryableTest = 
 
@@ -122,7 +122,7 @@ module QueryableTest =
         assert_one_query (fun () -> 
             let persons = 
                 MsSql.queryableDirectSql<PersonDifferent>
-                    [FSharp.ORM.Core.Sql.S "SELECT TOP 2 T.PersonId, T.PersonName, T.JobKind, T.VersionNo FROM Person AS T WHERE T.PersonName = "; FSharp.ORM.Core.Sql.P "Martin"]
+                    [FSharp.ORM.Sql.S "SELECT TOP 2 T.PersonId, T.PersonName, T.JobKind, T.VersionNo FROM Person AS T WHERE T.PersonName = "; FSharp.ORM.Sql.P "Martin"]
                     []
             let person = Seq.exactlyOne persons
             assert_equal { PersonIdentifier = 2; PersonNameOf = "Martin"; JobKind = JobKind.Manager; VersionNo = 0; } person

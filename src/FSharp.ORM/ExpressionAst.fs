@@ -10,12 +10,12 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
 
 open System
 open Microsoft.FSharp.Text.Lexing
 open Microsoft.FSharp.Text.Parsing
-open FSharp.ORM.Core.Text
+open FSharp.ORM.Text
 
 module ExpressionAst =
 

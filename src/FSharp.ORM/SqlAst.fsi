@@ -10,9 +10,9 @@
 // You must not remove this notice, or any other, from this software.
 //----------------------------------------------------------------------------
 
-namespace FSharp.ORM.Core
+namespace FSharp.ORM
 open System
-open FSharp.ORM.Core.Text
+open FSharp.ORM.Text
 
 /// <summary>The SQL abstract syntax tree.</summary>
 module SqlAst =

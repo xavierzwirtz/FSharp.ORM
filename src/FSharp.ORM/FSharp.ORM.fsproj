@@ -7,9 +7,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{479c9175-94db-4847-b6b6-59928d3731b5}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>FSharp.ORM.Core</AssemblyName>
+    <AssemblyName>FSharp.ORM</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <Name>FSharp.ORM.Core</Name>
+    <Name>FSharp.ORM</Name>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\FSharp.ORM.Core.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\FSharp.ORM.XML</DocumentationFile>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OtherFlags />
   </PropertyGroup>
@@ -32,7 +32,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\FSharp.ORM.Core.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\FSharp.ORM.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
@@ -76,7 +76,7 @@
       <OtherFlags>--unicode</OtherFlags>
     </FsLex>
     <FsYacc Include="ExpressionParser.fsy">
-      <OtherFlags>--internal --module FSharp.ORM.Core.ExpressionParser</OtherFlags>
+      <OtherFlags>--internal --module FSharp.ORM.ExpressionParser</OtherFlags>
     </FsYacc>
     <Compile Include="Expression.fsi" />
     <Compile Include="Expression.fs" />
@@ -94,7 +94,7 @@
       <OtherFlags>--unicode</OtherFlags>
     </FsLex>
     <FsYacc Include="SqlParser.fsy">
-      <OtherFlags>--internal --module FSharp.ORM.Core.SqlParser</OtherFlags>
+      <OtherFlags>--internal --module FSharp.ORM.SqlParser</OtherFlags>
     </FsYacc>
     <Compile Include="Setting.fsi" />
     <Compile Include="Setting.fs" />

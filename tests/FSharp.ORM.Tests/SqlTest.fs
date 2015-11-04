@@ -20,8 +20,8 @@ module SqlTest =
   open System.Globalization
   open Microsoft.FSharp.Text.Lexing
   open NUnit.Framework
-  open FSharp.ORM.Core
-  open FSharp.ORM.Core.SqlAst
+  open FSharp.ORM
+  open FSharp.ORM.SqlAst
 
   let private (|SingleNode|_|) statement = 
     match statement with Statement ([h]) -> Some h | _ -> None

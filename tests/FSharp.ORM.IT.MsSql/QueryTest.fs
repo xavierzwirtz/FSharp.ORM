@@ -18,7 +18,7 @@ open System.Data.Common
 open System.Dynamic
 open System.Transactions
 open NUnit.Framework
-open FSharp.ORM.Core
+open FSharp.ORM
 
 module QueryTest = 
 
