@@ -1,7 +1,7 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../bin"
+#I "../../bin/FSharp.ORM"
 
 (**
 FSharp.ORM
@@ -23,13 +23,111 @@ Documentation
 Example
 -------
 
-This example demonstrates using a function defined in this sample library.
+This example demonstrates setting up a database connection and using it to insert, edit, query, and delete records.
 
+## Schema
+```sql
+create table Department (
+    DepartmentId int primary key,
+    DepartmentName varchar(50) unique,
+    VersionNo int not null
+);
+create table Employee (
+    EmployeeId int identity primary key,
+    EmployeeName varchar(50),
+    DepartmentId int FOREIGN KEY REFERENCES Department(DepartmentId),
+    VersionNo int not null
+);
+```
 *)
+
+#r "FSharp.QueryProvider.dll"
 #r "FSharp.ORM.dll"
+
 open FSharp.ORM
 
-printfn "hello = %i" <| Library.hello 0
+open System
+open FSharp.ORM
+
+// define a module wraps Soma.Core.Db module
+module MyDb = 
+    let config = 
+        { new MsSqlConfig() with
+            member this.ConnectionString = "Data Source=localhost;Initial Catalog=FSharp.ORM.Tutorial;Integrated Security=True" }
+    let query<'T> = Db.query<'T> config
+    let queryOnDemand<'T> = Db.queryOnDemand<'T> config
+    let queryable<'T when 'T : not struct> = Db.queryable<'T> config
+    let queryableDirectSql<'T when 'T : not struct> = Db.queryableDirectSql<'T> config
+    let queryableDelete<'T when 'T : not struct> : Linq.IQueryable<'T> -> unit = Db.queryableDelete<'T> config
+    let execute sql expr = Db.execute config sql expr
+    let find<'T when 'T : not struct> = Db.find<'T> config
+    let tryFind<'T when 'T : not struct> = Db.tryFind<'T> config
+    let insert<'T when 'T : not struct> = Db.insert<'T> config
+    let update<'T when 'T : not struct> = Db.update<'T> config
+    let delete<'T when 'T : not struct> = Db.delete<'T> config
+    let call<'T when 'T : not struct> = Db.call<'T> config
+
+type DepartmentId = int
+// define a record mapped to a table 
+type Department =
+    { [<Id>]
+      DepartmentId : DepartmentId
+      DepartmentName : string
+      [<Version>]
+      VersionNo : int option }
+let createDepartment id name =
+    { DepartmentId = id
+      DepartmentName = name
+      VersionNo = None }
+
+type Employee =
+    { [<Id(IdKind.Identity)>]
+      EmployeeId : int option
+      EmployeeName : string option
+      DepartmentId : DepartmentId option
+      [<Version>]
+      VersionNo : int option }
+
+let salesDepartmentId = 1
+// insert 
+let salesDepartment = 
+    createDepartment salesDepartmentId "Sales"
+    |> MyDb.insert
+
+// load
+let salesDepartmentLoaded =
+    query { for x in MyDb.queryable<Department> do
+            where(x.DepartmentId = salesDepartmentId)
+            exactlyOne }
+
+// load with a partial string comparison
+let searchDepartments =
+    query { for x in MyDb.queryable<Department> do
+            where(x.DepartmentName.Contains("Sa")) }
+
+printfn "Search results: %A" (searchDepartments |> Seq.toList)
+
+// update
+let updatedSalesDepartment = MyDb.update { salesDepartment with DepartmentName = "Sales & Marketing" }
+
+printfn "Updated record: %A" updatedSalesDepartment
+
+// delete
+MyDb.delete updatedSalesDepartment
+printfn "Deleted record: %A" updatedSalesDepartment
+
+// delete all records that would be returned by a linq query
+MyDb.queryableDelete
+    (query {
+        for x in MyDb.queryable<Department> do
+        where(x.DepartmentName.Contains("Sa")) })
+ 
+// execute arbitrary SQL
+let rows = 
+    MyDb.execute @"
+    delete from Employee 
+    " []
+printfn "Affected rows: %A" rows
 
 (**
 Some more info
