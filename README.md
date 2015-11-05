@@ -15,6 +15,8 @@ This project provides an idiomattic ORM for fsharp.
 * MySQL 5.x.
 * SQLite 3
 
+LINQ queries are only supported on Microsoft SQL Server currently.
+
 Documentation: http://xavierzwirtz.github.io/FSharp.ORM
 
 ## Contributing
