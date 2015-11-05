@@ -1,4 +1,4 @@
-﻿<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
   <system.data>
     <DbProviderFactories>
       <remove xdt:Transform="RemoveAll"

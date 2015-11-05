@@ -170,6 +170,9 @@ docs/output/
 # Temp folder used for publishing docs
 temp/
 
+# Temp folder for fake cache
+.fake/
+
 # Test results produced by build
 TestResults.xml
 
